@@ -20,7 +20,14 @@ fun Application.module() {
 
         get("set_cookie") {
             call.apply {
-                response.cookies.append(Cookie("guid", "SOME_TOKEN", extensions = mapOf("SameSite" to "None")))
+                response.cookies.append(
+                    Cookie(
+                        "guid",
+                        "SOME_TOKEN",
+                        secure = true,
+                        extensions = mapOf("SameSite" to "None")
+                    )
+                )
             }.respond("Cookie set")
         }
 
