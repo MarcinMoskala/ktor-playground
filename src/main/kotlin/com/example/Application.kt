@@ -8,17 +8,12 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
-import io.rsocket.kotlin.RSocketRequestHandler
-import io.rsocket.kotlin.payload.Payload
-import io.rsocket.kotlin.payload.buildPayload
-import io.rsocket.kotlin.payload.data
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import java.time.Duration
 
 fun main() {
-    embeddedServer(Netty, port = System.getenv("PORT").toInt(), host = "0.0.0.0", module = Application::module)
+    embeddedServer(Netty, port = System.getenv("PORT")?.toIntOrNull() ?: 8090, host = "0.0.0.0", module = Application::module)
         .start(wait = true)
 }
 
@@ -53,6 +48,8 @@ fun Application.module() {
         }
 
         webSocket("sample_socket") {
+            send(Frame.Text("Hello from websocket"))
+
             val guid: String? = call.request.cookies["guid"]
             launch {
                 repeat(100) {
