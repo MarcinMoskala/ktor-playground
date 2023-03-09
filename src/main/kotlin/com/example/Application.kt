@@ -27,7 +27,7 @@ fun Application.module() {
         get("respond_cookie") {
             val cookie: String? = call.request.cookies["guid"]
             println("Sent cookie: $cookie")
-            call.respond(cookie.orEmpty())
+            call.respond("Cookie: " + cookie.orEmpty())
         }
     }
 }
