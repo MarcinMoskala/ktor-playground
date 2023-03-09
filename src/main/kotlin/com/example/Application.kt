@@ -20,14 +20,13 @@ fun Application.module() {
 
         get("set_cookie") {
             call.apply {
-                response.cookies.append(
-                    Cookie(
-                        "guid",
-                        "SOME_TOKEN",
-                        secure = true,
-                        extensions = mapOf("SameSite" to "None")
-                    )
+                val item = Cookie(
+                    "guid",
+                    "SOME_TOKEN",
+                    secure = true,
+                    extensions = mapOf("SameSite" to "None")
                 )
+                response.headers.append("Set-Cookie", renderSetCookieHeader(item))
             }.respond("Cookie set")
         }
 
