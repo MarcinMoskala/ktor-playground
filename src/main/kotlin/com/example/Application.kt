@@ -47,9 +47,8 @@ fun Application.module() {
         }
 
         webSocket("sample_socket") {
-            send(Frame.Text("Hello from websocket"))
-
             val guid: String? = call.request.cookies["guid"]
+            send(Frame.Text("Hello from websocket, guid was $guid"))
             repeat(100) {
                 delay(1000)
                 send(Frame.Text("Pint$it, guid was $guid"))
