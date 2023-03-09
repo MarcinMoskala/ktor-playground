@@ -9,7 +9,6 @@ import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.time.Duration
 
 fun main() {
@@ -51,11 +50,9 @@ fun Application.module() {
             send(Frame.Text("Hello from websocket"))
 
             val guid: String? = call.request.cookies["guid"]
-            launch {
-                repeat(100) {
-                    delay(1000)
-                    send(Frame.Text("Pint$it, guid was $guid"))
-                }
+            repeat(100) {
+                delay(1000)
+                send(Frame.Text("Pint$it, guid was $guid"))
             }
         }
     }
