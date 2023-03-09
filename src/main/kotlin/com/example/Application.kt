@@ -18,8 +18,8 @@ fun main() {
 
 fun Application.module() {
     install(WebSockets) {
-        pingPeriod = Duration.ofSeconds(15)
-        timeout = Duration.ofSeconds(15)
+        pingPeriod = Duration.ofSeconds(1000)
+        timeout = Duration.ofSeconds(1000)
         maxFrameSize = Long.MAX_VALUE
         masking = false
     }
